@@ -1,0 +1,44 @@
+<table class="table table-hover shadow-sm bg-white">
+  <thead class="table-primary">
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for tx in transactions %}
+    <tr>
+      <td>{{ tx.date.strftime('%Y-%m-%d') }}</td>
+      <td>{{ tx.category }}</td>
+      <td>
+        {% if tx.type == 'income' %}
+        <span class="badge bg-success">Income</span>
+        {% else %}
+        <span class="badge bg-danger">Expense</span>
+        {% endif %}
+      </td>
+      <td>$ {{ '%.2f'|format(tx.amount) }}</td>
+      <td>
+        <form method="POST">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete this transaction?');"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="5" class="text-center text-muted">
+        No transactions yet.
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
