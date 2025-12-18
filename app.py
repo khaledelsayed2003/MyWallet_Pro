@@ -7,7 +7,16 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('base.html')
+    return render_template(
+        "dashboard.html",
+        user=None,
+        transactions=[],
+        total_income=0,
+        total_expense=0,
+        balance=0,
+        category_labels=[],
+        category_values=[],
+    )
 
 @app.route("/login")
 def login():

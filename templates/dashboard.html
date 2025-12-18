@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4 fw-bold">Dashboard</h2>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h5>Total Income</h5>
+        <h3 class="text-success fw-bold">$ {{ '%.2f'|format(total_income) }}</h3>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h5>Total Expenses</h5>
+        <h3 class="text-danger fw-bold">$ {{ '%.2f'|format(total_expense) }}</h3>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h5>Balance</h5>
+        <h3 class="fw-bold">$ {{ '%.2f'|format(balance) }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-3">Expense Distribution</h5>
+        <canvas id="expenseChart" height="150"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="my-4" />
+
+<h4 class="fw-bold mb-3">Recent Transactions</h4>
+
+<table class="table table-hover shadow-sm bg-white">
+  <thead class="table-primary">
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for tx in transactions %}
+    <tr>
+      <td>{{ tx.date.strftime('%Y-%m-%d') }}</td>
+      <td>{{ tx.category }}</td>
+      <td>
+        {% if tx.type == 'income' %}
+        <span class="badge bg-success">Income</span>
+        {% else %}
+        <span class="badge bg-danger">Expense</span>
+        {% endif %}
+      </td>
+      <td>$ {{ '%.2f'|format(tx.amount) }}</td>
+      <td>
+        <form method="POST">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Delete this transaction?');"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="5" class="text-center text-muted">
+        No transactions yet. <a href="#">Add one</a>.
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if category_labels and category_values %}
+<script>
+  const CATEGORY_LABELS = {{ category_labels | tojson }};
+  const CATEGORY_VALUES = {{ category_values | tojson }};
+</script>
+{% endif %}
+
+{% endblock %}
