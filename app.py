@@ -26,5 +26,10 @@ def login():
 def register():
     return render_template("register.html")
 
+@app.route("/add")
+def add_transaction():
+    return render_template("add_transaction.html")
+
+
 if __name__  == "__main__":
     app.run(debug=True)
