@@ -20,14 +20,41 @@
       class="collapse navbar-collapse justify-content-end"
       id="navbarSupportedContent"
     >
-      <ul class="navbar-nav mb-2 mb-lg-0">
+    <ul class="navbar-nav align-items-center mb-2 mb-lg-0">
+      {% if user %}
         <li class="nav-item">
-          <a class="btn btn-light me-2" href="{{ url_for('login') }}">Login</a>
+          <a class="nav-link" href="{{ url_for('add_transaction') }}">
+            Add Transaction
+          </a>
         </li>
+    
         <li class="nav-item">
-          <a class="btn btn-outline-light" href="{{ url_for('register') }}">Sign Up</a>
+          <span class="nav-link disabled">
+            Hello, {{ user.username }}
+          </span>
         </li>
-      </ul>
+    
+        <li class="nav-item">
+          <a class="btn btn-outline-light ms-2" href="{{ url_for('logout') }}">
+            Logout
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="btn btn-light me-2" href="{{ url_for('login') }}">
+            Login
+          </a>
+        </li>
+    
+        <li class="nav-item">
+          <a class="btn btn-outline-light" href="{{ url_for('register') }}">
+            Sign Up
+          </a>
+        </li>
+      {% endif %}
+    </ul>
     </div>
   </div>
 </nav>
+
+

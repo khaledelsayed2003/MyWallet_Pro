@@ -119,7 +119,7 @@ def logout():
 
 @app.route("/add")
 def add_transaction():
-    return render_template("add_transaction.html")
+    return render_template("add_transaction.html", user=get_current_user())
 
 
 if __name__ == "__main__":
