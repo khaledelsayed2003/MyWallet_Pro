@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, flash
+from flask import Flask, render_template, url_for, redirect, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
@@ -51,8 +51,22 @@ def home():
         category_values=[],
     )
 
-@app.route("/login")
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        user = User.query.filter_by(email=email).first()
+
+        if user and user.check_password(password):
+            session["user_id"] = user.id
+            flash("Logged in successfully!", "success")
+            return redirect(url_for("home"))
+        else:
+            flash("Invalid email or password", "danger")
+
     return render_template("login.html")
 
 
