@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
@@ -55,9 +55,34 @@ def home():
 def login():
     return render_template("login.html")
 
-@app.route("/register")
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        # Check duplicates
+        existing = User.query.filter(
+            (User.email == email) | (User.username == username)
+        ).first()
+
+        if existing:
+            flash("Username or email already in use", "danger")
+            return redirect(url_for("register"))
+
+        user = User(username=username, email=email)
+        user.set_password(password)
+
+        db.session.add(user)
+        db.session.commit()
+
+        flash("Account created! Please log in.", "success")
+        return redirect(url_for("login"))
+
     return render_template("register.html")
+
 
 @app.route("/add")
 def add_transaction():
