@@ -35,14 +35,26 @@ class User(db.Model):
         return bcrypt.check_password_hash(self.password_hash, password)
 
 
+# --- HELPERS ---
+def get_current_user():
+    user_id = session.get("user_id")
+    if not user_id:
+        return None
+    return User.query.get(user_id)
 
 
-@app.route('/')
+
+
 @app.route('/home')
+@app.route("/")
 def home():
+    user = get_current_user()
+    if not user:
+        return redirect(url_for("login"))
+
     return render_template(
         "dashboard.html",
-        user=None,
+        user=user,
         transactions=[],
         total_income=0,
         total_expense=0,
@@ -96,6 +108,13 @@ def register():
         return redirect(url_for("login"))
 
     return render_template("register.html")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user_id", None)
+    flash("Logged out.", "info")
+    return redirect(url_for("login"))
 
 
 @app.route("/add")
