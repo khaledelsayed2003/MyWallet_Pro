@@ -23,7 +23,7 @@
       </td>
       <td>$ {{ '%.2f'|format(tx.amount) }}</td>
       <td>
-        <form method="POST">
+        <form method="POST" action="{{ url_for('delete_transaction', tx_id=tx.id) }}">
           <button
             class="btn btn-sm btn-outline-danger"
             onclick="return confirm('Delete this transaction?');"

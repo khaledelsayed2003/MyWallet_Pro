@@ -193,6 +193,25 @@ def add_transaction():
     return render_template("add_transaction.html", user=user)
 
 
+@app.route("/delete/<int:tx_id>", methods=["POST"])
+def delete_transaction(tx_id):
+    user = get_current_user()
+    if not user:
+        return redirect(url_for("login"))
+
+    tx = Transaction.query.get_or_404(tx_id)
+
+    # Authorization check
+    if tx.user_id != user.id:
+        flash("Not authorized to delete this transaction.", "danger")
+        return redirect(url_for("home"))
+
+    db.session.delete(tx)
+    db.session.commit()
+
+    flash("Transaction deleted.", "info")
+    return redirect(url_for("home"))
+
 
 if __name__ == "__main__":
     with app.app_context():
