@@ -13,7 +13,14 @@
     {% for tx in transactions %}
     <tr>
       <td>{{ tx.date.strftime('%Y-%m-%d') }}</td>
-      <td>{{ tx.category }}</td>
+      <td>
+        {{ tx.category }}
+        {% if tx.note %}
+          <div class="text-muted small">
+            {{ tx.note }}
+          </div>
+        {% endif %}
+      </td>
       <td>
         {% if tx.type == 'income' %}
         <span class="badge bg-success">Income</span>
