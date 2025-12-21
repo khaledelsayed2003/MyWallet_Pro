@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from datetime import datetime
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -33,6 +34,27 @@ class User(db.Model):
 
     def check_password(self, password: str) -> bool:
         return bcrypt.check_password_hash(self.password_hash, password)
+    
+    transactions = db.relationship(
+    "Transaction",
+    backref="user",
+    lazy=True,
+    cascade="all, delete"
+    )
+    
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Float, nullable=False)
+    type = db.Column(db.String(10), nullable=False)  # income / expense
+    category = db.Column(db.String(50), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    note = db.Column(db.String(255))
+
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    
+    
+
 
 
 # --- HELPERS ---
