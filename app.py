@@ -139,9 +139,41 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add")
+@app.route("/add", methods=["GET", "POST"])
 def add_transaction():
-    return render_template("add_transaction.html", user=get_current_user())
+    user = get_current_user()
+    if not user:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        amount = float(request.form.get("amount"))
+        t_type = request.form.get("type")
+        category = request.form.get("category")
+        date_str = request.form.get("date")
+        note = request.form.get("note") or ""
+
+        if date_str:
+            date = datetime.strptime(date_str, "%Y-%m-%d")
+        else:
+            date = datetime.utcnow()
+
+        tx = Transaction(
+            amount=amount,
+            type=t_type,
+            category=category,
+            date=date,
+            note=note,
+            user_id=user.id,
+        )
+
+        db.session.add(tx)
+        db.session.commit()
+
+        flash("Transaction added successfully!", "success")
+        return redirect(url_for("home"))
+
+    return render_template("add_transaction.html", user=user)
+
 
 
 if __name__ == "__main__":
