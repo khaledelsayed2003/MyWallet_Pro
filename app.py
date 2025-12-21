@@ -81,16 +81,21 @@ def home():
         .all()
     )
 
+    total_income = sum(t.amount for t in transactions if t.type == "income")
+    total_expense = sum(t.amount for t in transactions if t.type == "expense")
+    balance = total_income - total_expense
+
     return render_template(
         "dashboard.html",
         user=user,
         transactions=transactions,
-        total_income=0,
-        total_expense=0,
-        balance=0,
+        total_income=total_income,
+        total_expense=total_expense,
+        balance=balance,
         category_labels=[],
         category_values=[],
     )
+
 
 
 @app.route("/login", methods=["GET", "POST"])
