@@ -85,6 +85,13 @@ def home():
     total_expense = sum(t.amount for t in transactions if t.type == "expense")
     balance = total_income - total_expense
 
+    category_summary = {}
+    for t in transactions:
+        if t.type == "expense":
+            category_summary[t.category] = (
+                category_summary.get(t.category, 0) + t.amount
+            )
+
     return render_template(
         "dashboard.html",
         user=user,
@@ -92,10 +99,9 @@ def home():
         total_income=total_income,
         total_expense=total_expense,
         balance=balance,
-        category_labels=[],
-        category_values=[],
+        category_labels=list(category_summary.keys()),
+        category_values=list(category_summary.values()),
     )
-
 
 
 @app.route("/login", methods=["GET", "POST"])
