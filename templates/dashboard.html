@@ -53,10 +53,11 @@
 {% include "components/transaction_table.html" %}
 
 {% if category_labels and category_values %}
-<script>
-  const CATEGORY_LABELS = {{ category_labels | tojson }};
-  const CATEGORY_VALUES = {{ category_values | tojson }};
-</script>
+<div
+  id="chartData"
+  data-labels='{{ category_labels | tojson }}'
+  data-values='{{ category_values | tojson }}'
+></div>
 {% endif %}
 
 {% endblock %}
