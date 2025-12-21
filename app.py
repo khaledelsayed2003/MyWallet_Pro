@@ -74,10 +74,17 @@ def home():
     if not user:
         return redirect(url_for("login"))
 
+    transactions = (
+        Transaction.query
+        .filter_by(user_id=user.id)
+        .order_by(Transaction.date.desc())
+        .all()
+    )
+
     return render_template(
         "dashboard.html",
         user=user,
-        transactions=[],
+        transactions=transactions,
         total_income=0,
         total_expense=0,
         balance=0,
