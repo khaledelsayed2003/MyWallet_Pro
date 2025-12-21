@@ -13,3 +13,13 @@ body {
 table tbody tr td {
     vertical-align: middle;
 }
+.mood-area {
+  margin-top: 130px;   
+  text-align: center;  
+}
+.mood-gif {
+  width: 220px;       
+  height: auto;
+  opacity: 0.9;
+}
+

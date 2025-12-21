@@ -19,15 +19,22 @@
         <h3 class="text-danger fw-bold">$ {{ '%.2f'|format(total_expense) }}</h3>
       </div>
     </div>
-
+    
     <div class="card shadow-sm mb-3">
       <div class="card-body">
         <h5>Balance</h5>
         <h3 class="fw-bold">$ {{ '%.2f'|format(balance) }}</h3>
       </div>
     </div>
+    <div class="mood-area">
+      <img
+        src="{{ url_for('static', filename='images/money_anim.gif') }}"
+        alt="coin-wallet"
+        class="mood-gif"
+      />
+    </div>
   </div>
-
+  
   <div class="col-md-8">
     <div class="card shadow-sm">
       <div class="card-body">
