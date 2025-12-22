@@ -3,6 +3,10 @@
 
 <div class="row justify-content-center">
   <div class="col-md-4">
+    <!-- Rive Bunny -->
+    <div class="rive-wrap mb-2">
+      <canvas id="riveCanvas" width="420" height="260"></canvas>
+    </div>
     <div class="card shadow-sm">
       <div class="card-body">
         <h3 class="fw-bold text-center mb-4">Login</h3>
@@ -11,6 +15,7 @@
           <div class="mb-3">
             <label class="form-label">Email</label>
             <input
+              id="emailInput"
               type="email"
               name="email"
               class="form-control"
@@ -22,6 +27,7 @@
           <div class="mb-3">
             <label class="form-label">Password</label>
             <input
+              id="passwordInput"
               type="password"
               name="password"
               class="form-control"
@@ -43,6 +49,10 @@
     </div>
   </div>
 </div>
+
+<!-- Rive runtime + controller -->
+<script src="https://unpkg.com/@rive-app/canvas@2.21.3"></script>
+<script src="{{ url_for('static', filename='js/rive_login.js') }}"></script>
 
 {% endblock %}
 
