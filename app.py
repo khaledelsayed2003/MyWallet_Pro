@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, flash, session
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from app.extensions import db, bcrypt
 from datetime import datetime
 from dotenv import load_dotenv
 from pathlib import Path
@@ -17,9 +16,9 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initializes: SQLAlchemy: for database operations (ORM - Object Relational Mapping), Bcrypt: for password hashing/encryption
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
+db.init_app(app)
+bcrypt.init_app(app)
+
 
 
 # --- MODELS ---
