@@ -3,7 +3,7 @@ from flask import (
     redirect, url_for, session, flash
 )
 from datetime import datetime
-
+from app.helpers import login_required
 from app.extensions import db
 from app.models import User, Transaction
 
@@ -19,10 +19,9 @@ def get_current_user():
 
 @main.route("/")
 @main.route("/home")
+@login_required
 def dashboard():
     user = get_current_user()
-    if not user:
-        return redirect(url_for("main.login"))
 
     txs = (
         Transaction.query
@@ -53,10 +52,9 @@ def dashboard():
 
 
 @main.route("/add", methods=["GET", "POST"])
+@login_required
 def add_transaction():
     user = get_current_user()
-    if not user:
-        return redirect(url_for("main.login"))
 
     if request.method == "POST":
         amount = float(request.form.get("amount"))
@@ -136,10 +134,9 @@ def logout():
 
 
 @main.route("/delete/<int:tx_id>", methods=["POST"])
+@login_required
 def delete_transaction(tx_id):
     user = get_current_user()
-    if not user:
-        return redirect(url_for("main.login"))
 
     tx = Transaction.query.get_or_404(tx_id)
     if tx.user_id != user.id:
