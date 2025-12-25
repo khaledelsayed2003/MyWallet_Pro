@@ -60,34 +60,46 @@ It helps users manage income and expenses, visualize spending by category, and t
 MyWallet_Pro/
 │
 ├── app/
-│   ├── __init__.py        # App factory + config + blueprint registration
-│   ├── extensions.py     # SQLAlchemy & Bcrypt instances
-│   ├── helpers.py        # login_required decorator
-│   ├── models.py         # User & Transaction models
-│   ├── routes.py         # All app routes (Blueprint)
+│   ├── __init__.py
+│   ├── extensions.py
+│   ├── helpers.py
+│   ├── models.py
+│   ├── routes.py
+│   │
+│   ├── templates/
+│   │   ├── components/
+│   │   │   ├── navbar.html
+│   │   │   └── transaction_table.html
+│   │   │
+│   │   ├── base.html
+│   │   ├── login.html
+│   │   ├── register.html
+│   │   ├── dashboard.html
+│   │   └── add_transaction.html
+│   │
+│   └── static/
+│       ├── css/
+│       │   └── style.css
+│       │
+│       ├── js/
+│       │   ├── charts.js
+│       │   ├── category_toggle.js
+│       │   ├── rive_login.js
+│       │   └── rive_register.js
+│       │
+│       ├── images/
+│       │   └── money_anim.gif
+│       │
+│       └── rive/
+│           └── login_bunny.riv
 │
-├── static/
-│   ├── css/
-│   │   └── style.css
-│   ├── images/
-│   │   └── money_anim.gif
-│   ├── js/
-│   │   ├── charts.js
-│   │   ├── category_toggle.js
-│   │   ├── rive_login.js
-│   │   └── rive_register.js
-│   └── rive/
-│       └── login_bunny.riv
-│
-├── templates/
-│   ├── components/
-│   │   ├── navbar.html
-│   │   └── transaction_table.html
-│   ├── base.html
-│   ├── dashboard.html
-│   ├── add_transaction.html
-│   ├── login.html
-│   └── register.html
+├── screenshots/
+│   ├── 01_login.png
+│   ├── 02_login_email_focus.png
+│   ├── 03_login_password_focus.png
+│   ├── 04_register.png
+│   ├── 05_dashboard.png
+│   └── 06_add_transaction.png
 │
 ├── config/
 │   ├── .env
@@ -99,7 +111,9 @@ MyWallet_Pro/
 ├── run.py
 ├── requirements.txt
 ├── LICENSE
+├── .gitignore
 └── README.md
+
 ```
 
 ---
@@ -167,6 +181,56 @@ http://127.0.0.1:5000
 - Expense categories are summarized dynamically
 - Chart data is safely passed from Flask → JS using `tojson`
 - Category selector switches automatically between income & expense lists
+
+---
+
+## 📸 Screenshots
+
+### 🔐 Login Page
+
+Clean and minimal login interface with an interactive animated character.
+
+![Login](screenshots/01_login.png)
+
+---
+
+### 👀 Login – Input Focus Animation
+
+The character reacts when the user focuses on the email field.
+
+![Login Focus](screenshots/02_login_email_focus.png)
+
+---
+
+### 🙈 Login – Password Privacy Animation
+
+The character closes its eyes when the password field is focused.
+
+![Password Focus](screenshots/login_password_focus.png)
+
+---
+
+### 📝 Register Page
+
+User registration with the same interactive animated character behavior.
+
+![Register](screenshots/04_register.png)
+
+---
+
+### 📊 Dashboard Overview
+
+Main dashboard showing total income, expenses, balance, animated mood indicator, and expense distribution chart.
+
+![Dashboard](screenshots/05_dashboard.png)
+
+---
+
+### ➕ Add Transaction
+
+Form to add income or expense with dynamic category selection.
+
+![Add Transaction](screenshots/06_add_transaction.png)
 
 ---
 
