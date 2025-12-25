@@ -14,7 +14,7 @@ def get_current_user():
     user_id = session.get("user_id")
     if not user_id:
         return None
-    return User.query.get(user_id)
+    return db.session.get(User, user_id)
 
 
 @main.route("/")
@@ -97,7 +97,7 @@ def login():
             return redirect(url_for("main.dashboard"))
         flash("Invalid email or password", "danger")
 
-    return render_template("login.html")
+    return render_template("login.html", user=get_current_user())
 
 
 @main.route("/register", methods=["GET", "POST"])
@@ -123,10 +123,11 @@ def register():
         flash("Account created! Please log in.", "success")
         return redirect(url_for("main.login"))
 
-    return render_template("register.html")
+    return render_template("register.html", user=get_current_user())
 
 
 @main.route("/logout")
+@login_required
 def logout():
     session.pop("user_id", None)
     flash("Logged out.", "info")
