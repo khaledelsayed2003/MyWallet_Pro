@@ -9,16 +9,26 @@ from app.extensions import db, bcrypt
 def create_app():
     app = Flask(__name__)
 
-    # Load .env from /config/.env (same as you already do)
+    # Load .env from /config/.env
     BASE_DIR = Path(__file__).resolve().parent.parent
     load_dotenv(BASE_DIR / "config" / ".env")
 
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-fallback-secret")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///mywallet.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+        "DATABASE_URL", "sqlite:///mywallet.db"
+    )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    # init extensions
+    # Initialize extensions
     db.init_app(app)
     bcrypt.init_app(app)
+
+    #register blueprint
+    from app.routes import main
+    app.register_blueprint(main)
+
+    # create tables
+    with app.app_context():
+        db.create_all()
 
     return app

@@ -11,7 +11,7 @@
       <div class="card-body">
         <h3 class="fw-bold text-center mb-4">Login</h3>
 
-        <form method="POST" action="{{ url_for('login') }}">
+        <form method="POST" action="{{ url_for('main.login') }}">
           <div class="mb-3">
             <label class="form-label">Email</label>
             <input
@@ -42,7 +42,7 @@
         <div class="text-center mt-3">
             <small>
                 Don’t have an account?
-                <a href="{{ url_for('register') }}">Sign Up</a>
+                <a href="{{ url_for('main.register') }}">Sign Up</a>
             </small>
         </div>
       </div>
