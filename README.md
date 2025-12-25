@@ -206,7 +206,7 @@ The character reacts when the user focuses on the email field.
 
 The character closes its eyes when the password field is focused.
 
-![Password Focus](screenshots/login_password_focus.png)
+![Password Focus](screenshots/03_login_password_focus.png)
 
 ---
 
