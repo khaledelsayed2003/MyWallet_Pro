@@ -1,7 +1,28 @@
 # MyWallet Pro
 
-**MyWallet Pro** is a personal finance tracking web application built with **Flask**.
-It helps users manage income and expenses, visualize spending by category, and track their balance — all with a clean UI and interactive animations.
+**MyWallet Pro** is a full-stack personal finance tracking web application built with Flask.  
+It allows users to securely manage income and expenses, visualize spending by category, and track their financial balance through an intuitive dashboard.
+
+The application features session-based authentication, ORM-backed data modeling, interactive charts, and animated UI elements.  
+It is fully deployed on PythonAnywhere and accessible as a live web application.
+
+---
+
+## 🌐 Live Demo
+
+The application is deployed and publicly accessible.
+
+🔗 **Live URL:**  
+https://khaled2003elsayed.pythonanywhere.com/login
+
+Anyone can:
+
+- Register a new account
+- Log in securely
+- Add and manage personal transactions
+- View charts and analytics in real time
+
+> ⚠️ Demo note: This is a shared environment. Do not use real financial data.
 
 ---
 
@@ -12,6 +33,7 @@ It helps users manage income and expenses, visualize spending by category, and t
   - Register / Login / Logout
   - Secure password hashing using **Flask-Bcrypt**
   - Session-based authentication with route protection
+  - Deployed authentication flow tested in production (PythonAnywhere)
 
 - 💸 **Transaction Management**
 
@@ -51,6 +73,7 @@ It helps users manage income and expenses, visualize spending by category, and t
 - **Animations:** Rive (Canvas runtime)
 - **Security:** Flask-Bcrypt, session-based auth
 - **Environment Config:** python-dotenv
+- **Deployment:** PythonAnywhere
 
 ---
 
@@ -181,6 +204,21 @@ http://127.0.0.1:5000
 - Expense categories are summarized dynamically
 - Chart data is safely passed from Flask → JS using `tojson`
 - Category selector switches automatically between income & expense lists
+
+---
+
+## 🚀 Deployment
+
+The application is deployed on **PythonAnywhere**.
+
+Deployment includes:
+
+- Production environment configuration
+- Environment variables for secrets
+- Persistent SQLite database
+- Public access with real user sessions
+
+Live users can create their own accounts and use the system independently.
 
 ---
 
